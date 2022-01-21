@@ -1,0 +1,19 @@
+{
+   "urlMap" : {
+      "http://news.yahoo.com" : [
+         "http://news.yahoo.com/xyz",
+         "http://news.yahoo.com/abc",
+         "http://facebook.com/abc"
+      ],
+      "http://news.yahoo.com/xyz" : [
+         "http://news.yahoo.com/xyz/cat",
+         "http://news.yahoo.com/xyz/tiger",
+         "http://amazon.com/abc"
+      ],
+      "http://facebook.com/abc" : [
+         "http://facebook.com/abc/profile",
+         "http://facebook.com/abc/chats",
+         "http://amazon.com/abc"
+      ]
+   }
+}
