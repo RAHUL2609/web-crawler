@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-crawler
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-crawler
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: web-crawler
+    spec:
+      containers:
+        - env:
+            - name: SERVER_PORT
+              value: "8095"
+          image: web-crawler
+          imagePullPolicy: Never
+          name: web-crawler
+          ports:
+            - containerPort: 8095
+      restartPolicy: Always
+      serviceAccountName: ""
+status: {}
