@@ -9,7 +9,7 @@ go mod download
 
 go env -w GOINSECURE=gorm.io,golang.org,go.etcd.io,gopkg.in
 go get github.com/go-delve/delve/cmd/dlv
-go build main.go
+go build ../cmd/server/main.go
 
 # Build the docker
 docker image rm -f $deployname

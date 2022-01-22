@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"example.com/web-crawler-golang/service"
+	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
@@ -13,7 +14,7 @@ import (
 	"example.com/web-crawler-golang/endpoint"
 )
 const (
-	serverPort  = "localhost:8080"
+	serverPort  = "SERVER_PORT"
 )
 
 // Run starts the HTTP server
@@ -21,7 +22,14 @@ func Run() {
 	log.SetFormatter(&log.JSONFormatter{})
 
 	handler := setUpServer()
-	srv := &http.Server{Addr: serverPort, Handler: handler}
+
+	serverPort, exists := os.LookupEnv(serverPort)
+	if !exists || len(serverPort) == 0 {
+		log.Fatalf("Port for web-crawer with envName : %s is not specified", serverPort)
+	}
+
+	addr := fmt.Sprintf(":%s",serverPort)
+	srv := &http.Server{Addr: addr, Handler: handler}
 	go func() {
 		log.Info("Starting server")
 
