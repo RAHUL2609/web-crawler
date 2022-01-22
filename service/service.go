@@ -81,27 +81,16 @@ func (cs CrawlerService) FetchCrawledUrlById(uid string) ([]string, error) {
 func (cs CrawlerService) processCrawling(uid string) {
 	if reqToProcess, ok := cs.task[uid]; ok && reqToProcess.status == INITIATED {
 		reqToProcess.status = PROCESSING
-		reqToProcess.Crawler(reqToProcess.requestUrl)
+		reqToProcess.Crawler(reqToProcess.requestUrl, repository.Respository{})
 		reqToProcess.status = COMPLETED
 	}
 }
 
-func fetchUniqueUid(cs *CrawlerService) string {
-	if cs != nil {
-		uid := uuid.New().String()
-		if _, ok := cs.task[uid]; ok {
-			return fetchUniqueUid(cs)
-		}
-	}
-	return ""
-}
-
-
-func (parser requestParser) Crawler(parentUrl string) {
-	for _, url := range repository.CrawlUrl(parentUrl) {
+func (parser requestParser) Crawler(parentUrl string, provider repository.RespositoryInterface) {
+	for _, url := range provider.CrawlUrl(parentUrl) {
 		if _, ok := parser.childUrls[url]; !ok && parser.isSameDomain(url) {
 			parser.childUrls[url] = true
-			parser.Crawler(url)
+			parser.Crawler(url, provider)
 		}
 	}
 }

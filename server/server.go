@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"example.com/web-crawler-golang/repository"
 	"example.com/web-crawler-golang/service"
 	"fmt"
 	"net/http"
@@ -10,8 +11,8 @@ import (
 	"syscall"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"example.com/web-crawler-golang/endpoint"
+	log "github.com/sirupsen/logrus"
 )
 const (
 	serverPort  = "SERVER_PORT"
@@ -59,6 +60,7 @@ func Run() {
 func setUpServer() http.Handler {
 	mux := http.NewServeMux()
 	crawlLogger := log.WithField("endpoint", "getUrlTask")
+	repository.InitLoadUrl()
 	crawlerService := service.NewCrawlerService()
 	mux.Handle("/crawl/submit", endpoint.SubmitTask(crawlerService, crawlLogger))
 	mux.Handle("/crawl/read/", endpoint.GetCrawledUrlsById(crawlerService, crawlLogger))

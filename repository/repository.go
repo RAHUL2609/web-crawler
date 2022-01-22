@@ -12,10 +12,13 @@ type RespositoryInterface interface {
 	CrawlUrl(url string) []string
 }
 
+type Respository struct {
+}
+
 var ScannedUrls domain.UrlTemplate
 
-func init() {
-	urlTemplateJson, err := os.Open("resources/urls.json")
+func InitLoadUrl() {
+	urlTemplateJson, err := os.Open("urls.json")
 	if err != nil {
 		log.Fatalf("Error while loading json file")
 	}
@@ -30,7 +33,7 @@ func init() {
 	}
 }
 
-func CrawlUrl(url string) []string {
+func (r Respository) CrawlUrl(url string) []string {
 	if derivedUrls , ok := ScannedUrls.UrlMap[url]; ok {
 		return derivedUrls
 	}

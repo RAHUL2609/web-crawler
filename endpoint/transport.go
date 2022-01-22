@@ -28,12 +28,6 @@ func SubmitTask (
 		kithttp.ServerBefore(serveroption.ExtractAcceptHeaderIntoContext),
 		kithttp.ServerErrorHandler(transport.NewLogErrorHandler(kitlogrus.NewLogrusLogger(logger))),
 	}
-
-	/*mw := endpoint.Chain(
-		middleware.MakeAcceptHeaderValidationMiddleware(),
-		makeValidationMiddleware(),
-	)*/
-
 	mw := endpoint.Chain(
 		makeValidationMiddleware(),
 	)
