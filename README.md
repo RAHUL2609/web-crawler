@@ -30,9 +30,7 @@ Steps :
   1. cd build
   2. sh comp-build.sh (This would generate an docker image with name web-crawler)
   3. kubectl create namespace demo (Create a namespace under which with service would be deployed)
-  4. kubectl delete -f service.yaml -n demo (delete older deployments if already exists)
+  4. kubectl delete -f service.yaml -n demo (delete older service if already exists)
   5. kubectl delete -f deployment.yaml -n demo (delete older deployments if already exists)
-  6. kubectl delete -f service.yaml -n demo (This will start the web-crawler service under demo namespace)
-     validate health status : kubectl get svc -n demo | grep web-crawler
-  7. kubectl delete -f deployment.yaml -n demo (delete older deployments if already exists)
-     validate health of the pod : kubectl get pods -n demo | grep web-crawler
+  6. validate health status : kubectl get svc -n demo | grep web-crawler
+  7. validate health of the pod : kubectl get pods -n demo | grep web-crawler
